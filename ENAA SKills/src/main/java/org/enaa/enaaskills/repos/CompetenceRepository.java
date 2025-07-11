@@ -1,0 +1,20 @@
+package org.enaa.enaaskills.repos;
+
+import org.enaa.enaaskills.Models.Competence;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+public interface CompetenceRepository extends JpaRepository<Competence, Long> {
+    Competence findCompetenceById(Long competenceId);
+
+    @Modifying
+    @Query("UPDATE Competence c SET c.valide = :valide WHERE c.id = :competenceId")
+    void updateCompetenceValidationStatus(@Param("competenceId") Long competenceId, @Param("valide") boolean valide);
+
+    @Query(value = "SELECT * FROM Competence where valide='true'",nativeQuery = true)
+    List<Competence> competencevalide();
+}
