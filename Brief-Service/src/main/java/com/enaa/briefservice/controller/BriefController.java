@@ -2,6 +2,7 @@ package com.enaa.briefservice.controller;
 import com.enaa.briefservice.DTO.BriefDto;
 import com.enaa.briefservice.model.Brief;
 import com.enaa.briefservice.service.BriefService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +13,9 @@ import java.util.List;
 
 public class BriefController {
 
+    @Autowired
+    private  BriefService briefService;
 
-    private final BriefService briefService;
-
-    public BriefController(BriefService briefService) {
-        this.briefService = briefService;
-    }
 
     @PostMapping
     public ResponseEntity<BriefDto> create(@RequestBody BriefDto briefDto) {
@@ -35,8 +33,8 @@ public class BriefController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BriefDto> update(@PathVariable Long id, @RequestBody Brief brief) {
-        return ResponseEntity.ok(briefService.updateBrief(id, brief));
+    public ResponseEntity<BriefDto> update(@PathVariable Long id, @RequestBody BriefDto briefDto) {
+        return ResponseEntity.ok(briefService.updateBrief(id, briefDto));
     }
 
 

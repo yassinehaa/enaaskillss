@@ -1,4 +1,4 @@
-package org.example.apprenantservice.Modeles;
+package org.example.apprenantservice.Models;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;

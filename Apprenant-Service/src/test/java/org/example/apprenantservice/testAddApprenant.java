@@ -1,8 +1,8 @@
 package org.example.apprenantservice;
 
 
-import org.example.apprenantservice.Modeles.Apprenant;
-import org.example.apprenantservice.Repositorys.ApprenantRepository;
+import org.example.apprenantservice.Models.Apprenant;
+import org.example.apprenantservice.Repositories.ApprenantRepository;
 import org.example.apprenantservice.services.ApprenantService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

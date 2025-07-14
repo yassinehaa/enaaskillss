@@ -1,6 +1,6 @@
-package org.example.apprenantservice.Repositorys;
+package org.example.apprenantservice.Repositories;
 
-import org.example.apprenantservice.Modeles.Rendu;
+import org.example.apprenantservice.Models.Rendu;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,7 +1,7 @@
 package org.example.apprenantservice.Controllers;
 
 
-import org.example.apprenantservice.Modeles.Rendu;
+import org.example.apprenantservice.Models.Rendu;
 import org.example.apprenantservice.services.RenduService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

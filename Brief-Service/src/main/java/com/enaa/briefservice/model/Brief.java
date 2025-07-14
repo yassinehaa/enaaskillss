@@ -1,13 +1,16 @@
 package com.enaa.briefservice.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 
 
 @Entity
-
+@Data
+@NoArgsConstructor
 public class Brief {
 
     @Id
@@ -21,55 +24,13 @@ public class Brief {
     @ElementCollection
     private List<Long> competenceIds;
 
-
-    public Brief() {
-    }
-
-    public Brief(Long id, String titre, String description, Date dateDebut, Date dateFin) {
+    // Constructor for existing fields, now with competenceIds
+    public Brief(Long id, String titre, String description, Date dateDebut, Date dateFin, List<Long> competenceIds) {
         this.id = id;
         this.titre = titre;
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitre() {
-        return titre;
-    }
-
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getDateDebut() {
-        return dateDebut;
-    }
-
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
-    }
-
-    public Date getDateFin() {
-        return dateFin;
-    }
-
-    public void setDateFin(Date dateFin) {
-        this.dateFin = dateFin;
+        this.competenceIds = competenceIds;
     }
 }

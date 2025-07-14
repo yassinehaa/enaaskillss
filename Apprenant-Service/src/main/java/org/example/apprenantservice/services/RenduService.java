@@ -1,7 +1,7 @@
 package org.example.apprenantservice.services;
 
-import org.example.apprenantservice.Modeles.Rendu;
-import org.example.apprenantservice.Repositorys.RenduRepository;
+import org.example.apprenantservice.Models.Rendu;
+import org.example.apprenantservice.Repositories.RenduRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
