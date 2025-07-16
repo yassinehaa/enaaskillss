@@ -1,5 +1,7 @@
 package com.enaa.apigateway;
 
+import com.enaa.apigateway.filter.AuthenticationFilter;
+import com.enaa.apigateway.filter.RouteValidator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -17,13 +19,15 @@ public class ApiGatewayApplication {
     }
 
     @Bean
-    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+    public RouteLocator customRouteLocator(RouteLocatorBuilder builder, AuthenticationFilter authenticationFilter) {
         return builder.routes()
                 .route("auth-service", r -> r.path("/auth/**")
                         .uri("lb://auth-service"))
                 .route("apprenant-service", r -> r.path("/apprenants/**")
+                        .filters(f -> f.filter(authenticationFilter.apply(new AuthenticationFilter.Config())))
                         .uri("lb://apprenant-service"))
                 .route("brief-service", r -> r.path("/briefs/**")
+                        .filters(f -> f.filter(authenticationFilter.apply(new AuthenticationFilter.Config())))
                         .uri("lb://brief-service"))
                 .build();
     }
@@ -31,5 +35,10 @@ public class ApiGatewayApplication {
     @Bean
     public WebClient.Builder webClientBuilder() {
         return WebClient.builder();
+    }
+
+    @Bean
+    public AuthenticationFilter authenticationFilter(RouteValidator validator, WebClient.Builder webClientBuilder) {
+        return new AuthenticationFilter(validator, webClientBuilder);
     }
 }

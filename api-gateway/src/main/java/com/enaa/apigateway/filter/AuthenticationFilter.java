@@ -1,6 +1,5 @@
 package com.enaa.apigateway.filter;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
@@ -10,14 +9,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Component
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
-    @Autowired
-    private RouteValidator validator;
+    private final RouteValidator validator;
+    private final WebClient.Builder webClientBuilder;
 
-    @Autowired
-    private WebClient.Builder webClientBuilder;
-
-    public AuthenticationFilter() {
+    public AuthenticationFilter(RouteValidator validator, WebClient.Builder webClientBuilder) {
         super(Config.class);
+        this.validator = validator;
+        this.webClientBuilder = webClientBuilder;
     }
 
     @Override
