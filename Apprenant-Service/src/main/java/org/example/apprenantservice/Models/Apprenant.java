@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 public class Apprenant {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomComplet;
     private String email;

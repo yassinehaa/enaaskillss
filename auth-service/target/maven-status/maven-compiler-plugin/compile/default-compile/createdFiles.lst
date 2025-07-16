@@ -1,0 +1,11 @@
+com\enaa\App.class
+com\enaa\authservice\controller\AuthController.class
+com\enaa\authservice\service\AuthService.class
+com\enaa\authservice\controller\AuthRequest.class
+com\enaa\authservice\repository\UserRepository.class
+com\enaa\authservice\service\JwtService.class
+com\enaa\authservice\AuthServiceApplication.class
+com\enaa\authservice\model\Role.class
+com\enaa\authservice\model\User$UserBuilder.class
+com\enaa\authservice\model\User.class
+com\enaa\authservice\config\SecurityConfig.class

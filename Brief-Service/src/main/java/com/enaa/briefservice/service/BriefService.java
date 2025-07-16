@@ -1,11 +1,15 @@
 package com.enaa.briefservice.service;
 
 import com.enaa.briefservice.DTO.BriefDto;
+import com.enaa.briefservice.client.CompetenceClient;
 import com.enaa.briefservice.model.Brief;
 import com.enaa.briefservice.repository.BriefRepository;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,16 +18,25 @@ public class BriefService {
 
     private final BriefRepository briefRepository;
     private final ModelMapper modelMapper;
+    private final CompetenceClient competenceClient;
 
-    public BriefService(BriefRepository briefRepository, ModelMapper modelMapper) {
+    public BriefService(BriefRepository briefRepository, ModelMapper modelMapper, CompetenceClient competenceClient) {
         this.briefRepository = briefRepository;
         this.modelMapper = modelMapper;
+        this.competenceClient = competenceClient;
     }
 
-    public BriefDto saveBrief(BriefDto briefDto) {
+    public List<BriefDto> saveBrief(BriefDto briefDto) {
         Brief brief = modelMapper.map(briefDto, Brief.class);
-        Brief savedBrief = briefRepository.save(brief);
-        return modelMapper.map(savedBrief, BriefDto.class);
+        List<BriefDto> dtos = new ArrayList<>();
+        for (Long id: briefDto.getCompetenceIds()){
+            if (competenceClient.getCompetenceById(id) != null)
+                dtos.add(modelMapper.map(briefRepository.save(brief), BriefDto.class));
+
+            else
+                System.out.printf("competence not found");
+        }
+        return dtos;
     }
 
     public List<BriefDto> getAllBriefs() {

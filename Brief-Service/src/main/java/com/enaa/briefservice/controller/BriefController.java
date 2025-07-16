@@ -19,7 +19,7 @@ public class BriefController {
 
     @PostMapping
     public ResponseEntity<BriefDto> create(@RequestBody BriefDto briefDto) {
-        return ResponseEntity.ok(briefService.saveBrief(briefDto));
+        return ResponseEntity.ok((BriefDto) briefService.saveBrief(briefDto));
     }
 
     @GetMapping
