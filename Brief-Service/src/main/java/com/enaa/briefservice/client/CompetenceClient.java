@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "ENAA SKills",url = "http://localhost:8080")
+@FeignClient(name = "enaa-skills")
 
 public interface CompetenceClient {
 

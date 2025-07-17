@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  discovery-server:
+    build: ./discovery-server
+    ports:
+      - "8761:8761"
+    networks:
+      - enaa_network
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8084:8084"
+    depends_on:
+      - discovery-server
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
+    networks:
+      - enaa_network
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "8085:8085"
+    depends_on:
+      - discovery-server
+      - db
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/enaa_auth_db?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - enaa_network
+
+  apprenant-service:
+    build: ./Apprenant-Service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - discovery-server
+      - db
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/ApprenantService?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - enaa_network
+
+  brief-service:
+    build: ./Brief-Service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - discovery-server
+      - db
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/briefservice?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - enaa_network
+
+  enaa-skills:
+    build: ./ENAA SKills
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery-server
+      - db
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/enaaskills?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - enaa_network
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - enaa_network
+
+networks:
+  enaa_network:
+    driver: bridge
+
+volumes:
+  db_data:
