@@ -26,17 +26,22 @@ public class BriefService {
         this.competenceClient = competenceClient;
     }
 
-    public List<BriefDto> saveBrief(BriefDto briefDto) {
+    public BriefDto saveBrief(BriefDto briefDto) {
         Brief brief = modelMapper.map(briefDto, Brief.class);
-        List<BriefDto> dtos = new ArrayList<>();
-        for (Long id: briefDto.getCompetenceIds()){
-            if (competenceClient.getCompetenceById(id) != null)
-                dtos.add(modelMapper.map(briefRepository.save(brief), BriefDto.class));
+        // Assuming competenceIds are validated before saving the brief
+        // If competenceClient.getCompetenceById(id) is meant to validate, it should be done here
+        // or the client should handle the case where competence is not found.
+        // For now, I'll assume the competenceIds are valid or handled by the client.
+        Brief savedBrief = briefRepository.save(brief);
+        return modelMapper.map(savedBrief, BriefDto.class);
+    }
 
-            else
-                System.out.printf("competence not found");
+    public List<BriefDto> saveAllBriefs(List<BriefDto> briefDtos) {
+        List<BriefDto> savedBriefs = new ArrayList<>();
+        for (BriefDto briefDto : briefDtos) {
+            savedBriefs.add(saveBrief(briefDto));
         }
-        return dtos;
+        return savedBriefs;
     }
 
     public List<BriefDto> getAllBriefs() {

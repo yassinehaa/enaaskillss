@@ -1,6 +1,6 @@
 package org.example.apprenantservice.Controllers;
 
-
+import org.example.apprenantservice.DTOs.RenduDetailsDTO;
 import org.example.apprenantservice.Models.Rendu;
 import org.example.apprenantservice.services.RenduService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class RenduController {
     }
 
     @GetMapping("/get-Rendu")
-    public List<Rendu> getRendu() {
+    public List<RenduDetailsDTO> getRendu() {
         return renduService.getRendus();
     }
 }

@@ -17,11 +17,20 @@ public class Rendu {
     private Long id;
     private String lien;
     private Date dateDepot;
+    private Long briefId;
 
 
     @ManyToOne
     @JsonBackReference
     private Apprenant apprrent;
+
+    public Long getBriefId() {
+        return briefId;
+    }
+
+    public void setBriefId(Long briefId) {
+        this.briefId = briefId;
+    }
 
     public Long getId() {
         return id;

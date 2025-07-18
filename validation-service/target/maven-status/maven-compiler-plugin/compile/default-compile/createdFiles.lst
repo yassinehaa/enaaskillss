@@ -1,0 +1,6 @@
+com\enaa\validationservice\client\CompetenceClient.class
+com\enaa\validationservice\ValidationServiceApplication.class
+com\enaa\validationservice\service\ValidationService.class
+com\enaa\validationservice\repository\ValidationRepository.class
+com\enaa\validationservice\model\Validation.class
+com\enaa\validationservice\controller\ValidationController.class

@@ -1,4 +1,3 @@
-com\enaa\App.class
 com\enaa\authservice\controller\AuthController.class
 com\enaa\authservice\service\AuthService.class
 com\enaa\authservice\controller\AuthRequest.class

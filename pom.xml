@@ -16,6 +16,7 @@
         <module>Brief-Service</module>
         <module>discovery-server</module>
         <module>ENAA SKills</module>
+        <module>validation-service</module>
     </modules>
 
 </project>

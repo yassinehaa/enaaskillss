@@ -83,6 +83,22 @@ services:
     networks:
       - enaa_network
 
+  validation-service:
+    build: ./validation-service
+    ports:
+      - "8086:8086"
+    depends_on:
+      - discovery-server
+      - db
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/validation-service?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - enaa_network
+
   db:
     image: mysql:8.0
     environment:
